@@ -18,6 +18,8 @@ flixcal-generator
 You can also use `pip install --user dist/flixcal-0.1.0-py3-none-any.whl`
 ```
 
+If you are on Arch Linux, you can use the PKGBUILD in the arch directory. But you need to run `pip install --user pycookiecheat` as there is no AUR package for.
+
 # Running the tests
 ```bash
 kmille@linbox:flixcal poetry run pytest -v -s
