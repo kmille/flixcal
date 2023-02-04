@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:ics.py - http://git.io/lLljaA
+BEGIN:VEVENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Darmstadt -> Freiburg (i.Br.)
+TRIGGER;VALUE=DATE-TIME:20230323T125700Z
+END:VALARM
+DESCRIPTION:Wagen 3 Sitz 24D\nZug: FLX10 Richtung Basel Bad Bf\nQR: https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=https://shop.flixbus.de/pdfqr/3056658025/9vxr2qtujjoynqxct2pcck4q19hi0piy5fmai9p9zxyh9hmd0a?trip=direct:183882293:20648:26168
+DTEND:20230323T173300Z
+DTSTART:20230323T145700Z
+SUMMARY:Darmstadt -> Freiburg (i.Br.)
+UID:03e0ef4f-58d6-4823-bd3c-6fdee3285210@03e0.org
+END:VEVENT
+BEGIN:VEVENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Freiburg (i.Br.) -> Darmstadt
+TRIGGER;VALUE=DATE-TIME:20230327T055900Z
+END:VALARM
+DESCRIPTION:Wagen 3 Sitz 3A\nZug: FLX10 Richtung Berlin Hbf\nQR: https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=https://shop.flixbus.de/pdfqr/3056658025/9vxr2qtujjoynqxct2pcck4q19hi0piy5fmai9p9zxyh9hmd0a?trip=direct:183879973:26168:20648
+DTEND:20230327T104800Z
+DTSTART:20230327T075900Z
+SUMMARY:Freiburg (i.Br.) -> Darmstadt
+UID:bcd85fd6-9e2a-4039-889b-a74f3590712c@bcd8.org
+END:VEVENT
+END:VCALENDAR
