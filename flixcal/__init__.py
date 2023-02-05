@@ -1,3 +1,4 @@
+import sys
 import requests
 from urllib.parse import unquote
 import arrow
@@ -6,15 +7,18 @@ from pathlib import Path
 from ics import Calendar, Event
 from ics.alarm import DisplayAlarm
 
-from pycookiecheat import chrome_cookies
+import browser_cookie3
 
 
 def get_json_data():
-    BASE_URL = "https://shop.flixbus.de"
-    cookies = chrome_cookies(BASE_URL, browser='chromium')
-    session = requests.Session()
-    session.cookies.update(cookies)
-    resp = session.get("https://shop.flixbus.de/booking/success/eventOrder")
+    domain = "shop.flixbus.de"
+    # looks in all browsers for cookies
+    cookies = browser_cookie3.load(domain_name=domain)
+    if len(cookies) == 0:
+        print("Error: Could not find any cookies.")
+        sys.exit(1)
+    resp = requests.get("https://shop.flixbus.de/booking/success/eventOrder", cookies=cookies)
+    # TODO: check for content-type: json
     resp.raise_for_status()
     return resp.json()
 
