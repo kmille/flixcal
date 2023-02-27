@@ -17,7 +17,9 @@ jobs:
         #uses: snok/install-poetry@v1
       - name: install poetry
         run: |
-          sudo apt-get install -y python3-poetry
+          # does not support --group
+          #sudo apt-get install -y python3-poetry
+          sudo pip install poetry
           poetry install
       - name: Lint with flake8
         run: |
