@@ -13,8 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
+        #- name: Install Poetry
+        #uses: snok/install-poetry@v1
+      - name: install poetry
+        run: sudo apt-get install -y python3-poetry-core
       - name: Lint with flake8
         run: |
           poetry run flake8 --ignore=E501 --show-source --statistics flixcal/
