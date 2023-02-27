@@ -4,26 +4,37 @@ from urllib.parse import unquote
 import arrow
 from pathlib import Path
 
+import argparse
 from ics import Calendar, Event
 from ics.alarm import DisplayAlarm
 
 import browser_cookie3
 
+from typing import Dict, Tuple, Any
 
-def get_json_data():
-    domain = "shop.flixbus.de"
+
+def get_json_data(domain: str) -> Any:
     # looks in all browsers for cookies
+    print(f"Grabbing cookies for domain {domain}")
     cookies = browser_cookie3.load(domain_name=domain)
     if len(cookies) == 0:
         print("Error: Could not find any cookies.")
         sys.exit(1)
-    resp = requests.get("https://shop.flixbus.de/booking/success/eventOrder", cookies=cookies)
-    # TODO: check for content-type: json
-    resp.raise_for_status()
+    resp = requests.get(f"https://{domain}/booking/success/eventOrder", cookies=cookies)
+
+    status = resp.status_code
+    if status != 200:
+        print(f"Error. Response code is not 200: {status}")
+        sys.exit(1)
+
+    content_type = resp.headers['content-type']
+    if content_type != "application/json":
+        print(f"Error. Content type is not application/json: {content_type}")
+        sys.exit(1)
     return resp.json()
 
 
-def parse_json(j):
+def parse_json(j: Dict) -> Tuple[str, Calendar]:
     cal = Calendar()
     b = j['id']
     buchungsnummer = f"{b[0:3]} {b[3:6]} {b[6:]}"
@@ -65,8 +76,13 @@ def parse_json(j):
     return b, cal
 
 
-def main():
-    json_data = get_json_data()
+def main() -> None:
+    parser = argparse.ArgumentParser(description="After you ordered a flixtrain (train only is supported) ticket, you will see https://shop.global.flixbus.com/booking/success in the browser. Then, run this script and you will get an ics with your rides")
+    parser.add_argument('--domain', '-d', default='shop.flixbus.de', help='domain used to grab cookies')
+
+    args = parser.parse_args()
+
+    json_data = get_json_data(args.domain)
     buchungsnummer, cal = parse_json(json_data)
     out_file = Path(f"~/Downloads/FLX-{buchungsnummer}.ics")
     with Path(out_file).expanduser().open("w") as f:
