@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flixcal"
-version = "0.1.0"
+version = "0.1.1"
 description = "simple to generate an ics file for your flixtrain rides using chromiums cookies"
 authors = ["kmille <github@androidloves.me>"]
 readme = "README.md"
