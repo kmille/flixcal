@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "flixcal"
 version = "0.1.0"
-description = "generates an ics file for your flixtrain rides using chromiums cookies"
+description = "simple to generate an ics file for your flixtrain rides using chromiums cookies"
 authors = ["kmille <github@androidloves.me>"]
 readme = "README.md"
 
@@ -11,7 +11,6 @@ requests = "^2.28.2"
 arrow = "^1.2.3"
 ics = "^0.7.2"
 browser-cookie3 = "^0.17.0"
-dbus-python = "^1.3.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -26,7 +25,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-flixcal-generator = 'flixcal.__init__:main'
+flixcal = 'flixcal.__init__:main'
 
 
 [tool.mypy]
