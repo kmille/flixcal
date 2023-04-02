@@ -1,38 +1,27 @@
 # Maintainer: kmille <github@androidloves.me>
+
 pkgname=flixcal
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
-pkgdesc="generates an ics file for your flixtrain rides using chromiums cookies"
+pkgdesc="generate an ics file for your flixtrain rides using chromiums cookies"
 arch=('any')
 url="https://github.com/kmille/flixcal"
 license=('GPL3')
-makedepends=('git' 'python-pytest' 'python-poetry' 'python-build' 'python-installer' 'python-wheel')
-# TODO: there is no package for pycookiecheat
-depends=('python' 'python-requests' 'python-arrow' 'python-ics')
-source=(git+file:///home/kmille/projects/flixcal)
-#sha256sums=('ec5c449a881739218144415f1a895ca497bc2db105289d16b4b4daa664c14c63')
-sha256sums=('SKIP')
+makedepends=(python-poetry-core python-build python-installer python-wheel)
+depends=(python python-requests python-arrow python-browser-cookie3 dbus-python python-ics)
+source=(https://github.com/kmille/flixcal/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('9748ba228c5c1d9722da7bbaf7745154a686b8c9c3f5f52fbdc724e3062e4d10')
 
 build() {
-  cd "$srcdir/$pkgname"
-  python -m build --wheel --no-isolation
-}
-
-#check() {
-#  cd "$srcdir/$pkgname"
-#  poetry install
-#  poetry run pytest -v -s
-#  poetry env remove $(poetry env list | awk '{ print $1 }')
-#}
-
-check() {
-  cd "$srcdir/$pkgname"
-  pytest -v -s
+  cd "$srcdir/$pkgname-$pkgver"
+  # Note: set `GIT_CEILING_DIRECTORIES` to prevent poetry
+  # from incorrectly using a parent git checkout info.
+  # https://github.com/pypa/build/issues/384#issuecomment-947675975
+  GIT_CEILING_DIRECTORIES="${PWD}/.." python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "$srcdir/$pkgname"
+  cd "$srcdir/$pkgname-$pkgver"
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
-# vim:set ts=2 sw=2 et:
