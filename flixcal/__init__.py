@@ -60,7 +60,7 @@ def parse_json(j: Dict) -> Tuple[str, Calendar]:
         direction = stations['from']['line_direction']['direction']
         qr_code_data = unquote(fahrt['qr_data'])
         qr = f"https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl={qr_code_data}"
-        description = f"Wagen {wagen} Sitz {seat}\nZug: {zugnummer} Richtung {direction}\nQR: {qr}"
+        description = f"Buchungsnummer: {buchungsnummer}\nWagen {wagen} Sitz {seat}\nZug: {zugnummer} Richtung {direction}\nQR: {qr}"
         print(description)
 
         alarm = DisplayAlarm(display_text=name,
