@@ -54,13 +54,16 @@ def parse_json(j: Dict) -> Tuple[str, Calendar]:
 
         # expectation: no change to another train
         ticket = fahrt['tickets'][0]
-        seat = ticket['premium_seats'][0]['label']
-        wagen = ticket['premium_seats'][0]['coach']
+        seat = ticket['premium_seats'][0]['label'] if len(ticket['premium_seats']) > 0 else ""
+        wagen = ticket['premium_seats'][0]['coach'] if len(ticket['premium_seats']) > 0 else ""
         zugnummer = stations['from']['line_direction']['code']
         direction = stations['from']['line_direction']['direction']
         qr_code_data = unquote(fahrt['qr_data'])
         qr = f"https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl={qr_code_data}"
-        description = f"Buchungsnummer: {buchungsnummer}\nWagen {wagen} Sitz {seat}\nZug: {zugnummer} Richtung {direction}\nQR: {qr}"
+        if seat == "" and wagen == "":
+            description = f"Buchungsnummer: {buchungsnummer}\n\nZug: {zugnummer} Richtung {direction}\nQR: {qr}"
+        else:
+            description = f"Buchungsnummer: {buchungsnummer}\nWagen {wagen} Sitz {seat}\nZug: {zugnummer} Richtung {direction}\nQR: {qr}"
         print(description)
 
         alarm = DisplayAlarm(display_text=name,
