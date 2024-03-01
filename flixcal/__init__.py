@@ -36,7 +36,7 @@ def get_json_data(domain: str) -> Any:
 
 def parse_json(j: Dict) -> Tuple[str, Calendar]:
     cal = Calendar()
-    b = j['id']
+    b = str(j['id'])
     buchungsnummer = f"{b[0:3]} {b[3:6]} {b[6:]}"
     print(f"Buchungsnummer: {buchungsnummer}")
     for _, fahrt in j['items'].items():
