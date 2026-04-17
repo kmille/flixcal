@@ -16,7 +16,9 @@ from typing import Dict, Tuple, Any
 def get_json_data(domain: str) -> Any:
     # looks in all browsers for cookies
     print(f"Grabbing cookies for domain {domain}")
-    cookies = browser_cookie3.load(domain_name=domain)
+    #cookies = browser_cookie3.load(domain_name=domain)
+    #cookies = browser_cookie3.chromium(domain_name=domain)
+    cookies = browser_cookie3.firefox(domain_name=domain)
     if len(cookies) == 0:
         print("Error: Could not find any cookies.")
         sys.exit(1)
